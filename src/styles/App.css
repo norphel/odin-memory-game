@@ -36,6 +36,16 @@
     font-weight: bold;
     cursor: pointer;
 }
+#root.game {
+    display: block;
+}
+h1 {
+    padding: 1rem;
+    font-family: 'HarryP', sans-serif;
+    font-size: 4rem;
+    font-weight: 100;
+    color: #FFD700;
+}
 @keyframes glow {
     0% {
         text-shadow: 0 0 10px #FFD700;
