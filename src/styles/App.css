@@ -39,12 +39,31 @@
 #root.game {
     display: block;
 }
+.titleAndScore {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 h1 {
     padding: 1rem;
     font-family: 'HarryP', sans-serif;
     font-size: 4rem;
     font-weight: 100;
     color: #FFD700;
+}
+.score {
+    margin: 0 1rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 1rem;
+    color: #fff;
+    font-size: 1.2rem;
+}
+th {
+    text-align: left;
+    padding-right: 20px;
 }
 @keyframes glow {
     0% {
