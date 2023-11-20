@@ -4,18 +4,29 @@ export default function Game() {
             <div className="titleAndScore">
                 <h1>Hogwarts Memory Magic</h1>
                 <table className="score">
-                    <tr>
-                        <th>Current Score</th>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <th>Best Score</th>
-                        <td>0</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <th>Current Score</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Best Score</th>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <div className="container">
-
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
+                <div className="card"></div>
             </div>
         </>
     )
