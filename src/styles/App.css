@@ -59,6 +59,7 @@ h1 {
     font-size: 4rem;
     font-weight: 100;
     color: #FFD700;
+    text-align: center;
 }
 .score {
     margin: 0 1rem;
@@ -81,14 +82,34 @@ td {
 .container {
     padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     justify-items: center;
     gap: 1rem;
 }
 .card {
-    width: 100%;
+    width: 250px;
     height: 300px;
-    background-color: cadetblue;
+    overflow: hidden;
+    position: relative;
+}
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+.image-name {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    min-width: max-content;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 8px;
+    border-radius: 10px;
 }
 @media screen and (max-width: 768px) {
     .titleAndScore {
@@ -97,13 +118,6 @@ td {
 }
 @media screen and (min-width: 768px) {
     .container {
-      grid-template-columns: repeat(2, 1fr);
-      background-size: contain;
-    }
-}
-@media screen and (min-width: 1024px) {
-    .container {
-      grid-template-columns: repeat(5, 1fr);
       background-size: contain;
     }
 }
