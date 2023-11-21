@@ -22,8 +22,16 @@ function MemoryGameCards() {
     }, []);
     
     const getRandomSubset = (arr, size) => {
-        const shuffled = arr.sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, size);
+        const subset = [];
+        const selectedIndices = {};
+        while(subset.length < size && subset.length < arr.length) {
+            const randomIndex = Math.floor(Math.random() * arr.length);
+            if(!selectedIndices[randomIndex]) {
+                subset.push(arr[randomIndex]);
+                selectedIndices[randomIndex] = true;
+            }
+        }
+        return subset;
     }
 
     return (
