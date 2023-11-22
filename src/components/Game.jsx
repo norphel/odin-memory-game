@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 function MemoryGameCards() {
     const [images, setImages] = useState([]);
-    
+
     useEffect(() => {
         const fetchImages = async () => {
             try {
@@ -34,10 +34,23 @@ function MemoryGameCards() {
         return subset;
     }
 
+    const shuffleImages = () => { //Fisher-Yates algorithm
+        const shuffledImages = [...images];
+        for (let i = shuffledImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
+        }
+        setImages(shuffledImages);
+    };
+
+    const handleClick = () => {
+        shuffleImages();
+    }
+
     return (
         <div className="container">
             {images.map((image, index) => (
-                <div className="card" key={index}>
+                <div className="card" key={index} onClick={handleClick}>
                     <img 
                         src={image.image} 
                         alt={image.name}
