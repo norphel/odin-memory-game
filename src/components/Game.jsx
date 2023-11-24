@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
-function MemoryGameCards() {
+function MemoryGameCards({currentScore, bestScore, setCurrentScore, setBestScore}) {
     const [images, setImages] = useState([]);
+    const clickedImagesRef = useRef(new Set());
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -21,6 +22,12 @@ function MemoryGameCards() {
         fetchImages();
     }, []);
     
+    useEffect(() => {
+        if(currentScore > bestScore) {
+            setBestScore(currentScore);
+        }
+    }, [currentScore, bestScore]);
+
     const getRandomSubset = (arr, size) => {
         const subset = [];
         const selectedIndices = {};
@@ -43,14 +50,26 @@ function MemoryGameCards() {
         setImages(shuffledImages);
     };
 
-    const handleClick = () => {
+    const handleClick = (name) => {
         shuffleImages();
+
+        if(clickedImagesRef.current.has(name)) {
+            setCurrentScore(0);
+            clickedImagesRef.current.clear();
+        } else {
+            clickedImagesRef.current.add(name);
+            setCurrentScore(prevScore => prevScore + 1);
+        }
+
+        if(currentScore >= bestScore) {
+            setBestScore(currentScore > bestScore ? currentScore : bestScore);
+        }
     }
 
     return (
         <div className="container">
-            {images.map((image, index) => (
-                <div className="card" key={index} onClick={handleClick}>
+            {images.map((image) => (
+                <div className="card" key={image.name} onClick={() => handleClick(image.name)}>
                     <img 
                         src={image.image} 
                         alt={image.name}
@@ -64,6 +83,9 @@ function MemoryGameCards() {
 }
 
 export default function Game() {
+    const [currentScore, setCurrentScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
+
     return (
         <>
             <div className="titleAndScore">
@@ -72,16 +94,21 @@ export default function Game() {
                     <tbody>
                         <tr>
                             <th>Current Score</th>
-                            <td>0</td>
+                            <td>{currentScore}</td>
                         </tr>
                         <tr>
                             <th>Best Score</th>
-                            <td>0</td>
+                            <td>{bestScore}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <MemoryGameCards />
+            <MemoryGameCards 
+                currentScore={currentScore}
+                bestScore={bestScore}
+                setCurrentScore={setCurrentScore}
+                setBestScore={setBestScore}
+            />
         </>
     )
 }
