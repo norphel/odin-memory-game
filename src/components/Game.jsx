@@ -14,7 +14,7 @@ function MemoryGameCards({currentScore, bestScore, setCurrentScore, setBestScore
                 }
                 const allImages = await response.json();
                 const filteredImages = allImages.filter(image => image.image);
-                const requiredImages = getRandomSubset(filteredImages, 20);
+                const requiredImages = getRandomSubset(filteredImages, 15);
                 setImages(requiredImages);
             } catch (error) {
                 console.error("Error fetching images: ", error);

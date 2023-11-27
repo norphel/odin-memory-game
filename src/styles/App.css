@@ -91,6 +91,7 @@ td {
     height: 300px;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
 }
 .card-image {
     width: 100%;
