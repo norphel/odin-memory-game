@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 function MemoryGameCards({currentScore, bestScore, setCurrentScore, setBestScore}) {
     const [images, setImages] = useState([]);
     const clickedImagesRef = useRef(new Set());
+    const [triggerReRender, setTriggerReRender] = useState(false);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -13,14 +14,14 @@ function MemoryGameCards({currentScore, bestScore, setCurrentScore, setBestScore
                 }
                 const allImages = await response.json();
                 const filteredImages = allImages.filter(image => image.image);
-                const requiredImages = getRandomSubset(filteredImages, 10);
+                const requiredImages = getRandomSubset(filteredImages, 20);
                 setImages(requiredImages);
             } catch (error) {
                 console.error("Error fetching images: ", error);
             }
         };
         fetchImages();
-    }, []);
+    }, [triggerReRender]);
     
     useEffect(() => {
         if(currentScore > bestScore) {
@@ -66,20 +67,39 @@ function MemoryGameCards({currentScore, bestScore, setCurrentScore, setBestScore
         }
     }
 
-    return (
-        <div className="container">
-            {images.map((image) => (
-                <div className="card" key={image.name} onClick={() => handleClick(image.name)}>
-                    <img 
-                        src={image.image} 
-                        alt={image.name}
-                        className="card-image" 
-                    />
-                    <div className="image-name">{image.name}</div>
-                </div>
-            ))}
-        </div>
-    )
+    const restartGame = () => {
+        setCurrentScore(0);
+        setBestScore(0);
+        setImages([]);
+        clickedImagesRef.current.clear();
+        setTriggerReRender(prevState => !prevState);
+    }
+
+    const gameWon = currentScore !==0 && currentScore === images.length;
+
+    if (gameWon) {
+        return (
+            <div className="congratulatePlayer">
+                <h2>Congratulations!</h2>
+                <button onClick={restartGame}>Play Again</button>
+            </div>
+        )
+    } else {
+        return (
+            <div className="container">
+                {images.map((image) => (
+                    <div className="card" key={image.name} onClick={() => handleClick(image.name)}>
+                        <img 
+                            src={image.image} 
+                            alt={image.name}
+                            className="card-image" 
+                        />
+                        <div className="image-name">{image.name}</div>
+                    </div>
+                ))}
+            </div>
+        )
+    }
 }
 
 export default function Game() {
