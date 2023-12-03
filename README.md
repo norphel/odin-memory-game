@@ -6,4 +6,4 @@ A simple memory game to practice following React hooks
 - useEffect
 - useRef
 
-[Live Preview](https://glowing-semifreddo-04b260.netlify.app/)
+[Live Preview](https://hogwarts-memory-magic.netlify.app/)
